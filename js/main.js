@@ -14,29 +14,30 @@ yField.addEventListener("input", (event) => {
     }
 });
 
+$(document).ready(function() {
+    $('#form').submit(function(event) {
+        const t0 = performance.now();
+        event.preventDefault(); // Prevent the default form submission
 
+        var x = $('.checkbox-group.x-checkbox:checked').val();
+        var y = $('#y_field').val();
+        var r = $('.checkbox-group.r-checkbox:checked').val();
 
-
-
-// let xmlHttp = new XMLHttpRequest();
-// xmlHttp.open("GET", theUrl, true);
-//
-// function httpGetAsync(theUrl, callback)
-// {
-//
-//     xmlHttp.onreadystatechange = function() {
-//         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-//             callback(xmlHttp.responseText);
-//     }
-//     // true for asynchronous
-//     xmlHttp.send(null);
-// }
-//
-// // Define a callback function to handle the response
-// function handleResponse(responseText) {
-//     // Process the response here
-//     console.log("Response received:", responseText);
-// }
-//
-// var url = "file:///D:/Univer/web/lab_1/index.html";
-// httpGetAsync(url, handleResponse);
+        $.get('check.php', { val_x: x, val_y: y, val_r: r }, function (data)  {
+            // Process the response data (e.g., new rows for the table)
+            const t1 = performance.now();
+            var now = new Date();
+            var execution_time = t1-t0;
+            var newData = { x: x, y: y, r: r, time: now, execution_time: execution_time, result: data };
+            var newRow = '<tr>' +
+                '<td>' + newData.x + '</td>' +
+                '<td>' + newData.y + '</td>' +
+                '<td>' + newData.r + '</td>' +
+                '<td>' + newData.time + '</td>' +
+                '<td>' + newData.execution_time + '</td>' +
+                '<td>' + newData.result + '</td>' +
+            '</tr>';
+            $('#result-table tbody').append(newRow);
+        });
+    });
+});

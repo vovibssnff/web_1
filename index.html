@@ -4,14 +4,32 @@
         <title>lab_1</title>
         <meta charset="UTF-8"></meta>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <style>
+            .all {
+                margin: 0.5%;
+                padding: 0.5%;
+                height: fit-content;
+            }
+            h3 {
+                opacity: 55%;
+                color: rgba(255, 255, 255, 0.5);
+            }
             #header {
                 background-image: url('images/SL-093020-35920-01.jpg');
                 background-size: 100%;
+                position: fixed;
+                width: 97%;
+                z-index: 100;
+            }
+            #header #avatar {
+                max-width: 100%;
             }
             .header-container {
-                margin: 0.5%;
-                padding: 0.5%;
+                overflow: auto;
+                box-shadow: 0 -20px 100px black;
+                border: 3px solid #ff2f55;
+                border-radius: 25px;
             }
             .header-content {
                 width: 48%;
@@ -20,18 +38,26 @@
                 padding: 1rem 1rem;
                 vertical-align: middle;
             }
+            .header-content > #avatar {
+                width: 10%;
+                /*height: 5%;*/
+                border-radius: 50%;
+            }
             #student_info {
                 text-align: right;
             }
-            h3 {
+            #student_info > h3 {
                 opacity: 55%;
                 color: #ff2f55;
+                font-family: "Bree Serif", serif;
+                font-size: 18px;
             }
             #form {
                 width: 50%;
                 margin: 0.5%;
-                padding: 0.5%;
                 display: inline-block;
+                accent-color: #ff2f55;
+                padding: 10% 0.5% 0.5%;
             }
             .form-container {
                 /*width: 50%;*/
@@ -48,69 +74,87 @@
                 width: 10%;
                 display: inline-block;
             }
-            #y_field {
+            .form-content #y_field {
                 width: 95%;
+                border-radius: 10px;
             }
             #plot {
                 width: 40%;
                 display: inline-block;
                 text-align: center;
             }
+            #form #submit {
+                opacity: 92%;
+                background-color: #ff2f55;
+                border: 2px solid grey;
+                border-radius: 10px;
+            }
         </style>
     </head>
     <body>
-        <div id="header" class="header-container">
-            <div class="header-content">
-                <img id="avatar" src="images\photo_2023-02-26_00-39-08.jpg" alt="avatar" style="width: 10%;height: 5%;border-radius: 50%;">
+        <div class="all">
+            <div id="header" class="header-container">
+                <div class="header-content">
+                    <img id="avatar" src="images\photo_2023-02-26_00-39-08.jpg" alt="avatar">
+                </div>
+                <div id="student_info" class="header-content">
+                    <h3>Бессонов Владимир Юрьевич<br>P3112<br>2208</h3>
+                </div>
             </div>
-            <div id="student_info" class="header-content">
-                <h3>Бессонов Владимир Юрьевич<br>P3112<br>2208</h3>
+            <form id="form" class="form-container" action="http://localhost:63342/lab_1/index.php" method="GET">
+                <div class="form-content">
+                    <div class="form-subcontent">Ввод X:<br>
+                        <br><input type="checkbox" name="val_x" value="-4" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="-3" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="-2" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="-1" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="0" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="1" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="2" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="3" class="checkbox-group x-checkbox">
+                        <br><input type="checkbox" name="val_x" value="4" class="checkbox-group x-checkbox">
+                    </div>
+                    <script src="js/xCheckboxes.js"></script>
+                    <div class="form-subcontent">
+                        <br>-4<br>-3<br>-2<br>-1<br>0<br>1<br>2<br>3<br>4
+                    </div>
+                </div>
+
+                <div id="y" class="form-content">Ввод Y:
+                    <input id="y_field" type="text" name="val_y" required><br><br>
+                    <div class="form-subcontent">Ввод R:
+                        <br><input type="checkbox" name="val_r" value="1" class="checkbox-group r-checkbox">
+                        <br><input type="checkbox" name="val_r" value="1.5" class="checkbox-group r-checkbox">
+                        <br><input type="checkbox" name="val_r" value="2" class="checkbox-group r-checkbox">
+                        <br><input type="checkbox" name="val_r" value="2.5" class="checkbox-group r-checkbox">
+                        <br><input type="checkbox" name="val_r" value="3" class="checkbox-group r-checkbox">
+                    </div>
+                    <script src="js/rCheckboxes.js"></script>
+                    <div class="form-subcontent">
+                        <br>1<br>1.5<br>2<br>2.5<br>3
+                    </div><br>
+                    <br><input id="submit" type="submit" value="Отправить">
+                </div>
+            </form>
+            <div id="plot">
+                <img src="images/plot.png" style="border-radius: 15px">
             </div>
+            <div id="result-table-container" align="center">
+                <table id="result-table">
+                    <thead>
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>R</th>
+                        <th>Time</th>
+                        <th>Execution time (ms)</th>
+                        <th>Result</th>
+                    </tr>
+                    </thead>
+                    <tbody align="center"></tbody>
+                </table>
+            </div>
+            <script src="js/main.js"></script>
         </div>
-        <form id="form" class="form-container" action="http://localhost:63342/lab_1/index.php" method="GET">
-            <div class="form-content">
-                <div class="form-subcontent">Ввод X:<br>
-                    <br><input type="checkbox" name="val_x" value="-4" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="-3" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="-2" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="-1" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="0" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="1" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="2" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="3" class="checkbox-group x-checkbox">
-                    <br><input type="checkbox" name="val_x" value="4" class="checkbox-group x-checkbox">
-                </div>
-                <script src="js/xCheckboxes.js"></script>
-                <div class="form-subcontent">
-                    <br>-4<br>-3<br>-2<br>-1<br>0<br>1<br>2<br>3<br>4
-                </div>
-            </div>
-
-            <div id="y" class="form-content">Ввод Y:
-                <input id="y_field" type="text" name="val_y" required><br><br>
-                <div class="form-subcontent">Ввод R:
-                    <br><input type="checkbox" name="val_r" value="1" class="checkbox-group r-checkbox">
-                    <br><input type="checkbox" name="val_r" value="1.5" class="checkbox-group r-checkbox">
-                    <br><input type="checkbox" name="val_r" value="2" class="checkbox-group r-checkbox">
-                    <br><input type="checkbox" name="val_r" value="2.5" class="checkbox-group r-checkbox">
-                    <br><input type="checkbox" name="val_r" value="3" class="checkbox-group r-checkbox">
-                </div>
-                <script src="js/rCheckboxes.js"></script>
-                <div class="form-subcontent">
-                    <br>1<br>1.5<br>2<br>2.5<br>3
-                </div><br>
-<!--                <br><input id="submit" type="submit" value="Отправить">-->
-                <button>Отправить</button>
-            </div>
-
-<!--            <span role="alert" id="error" aria-hidden="true">-->
-<!--                Please enter First Name-->
-<!--            </span>-->
-        </form>
-        <div id="plot">
-            <img src="images/plot.png">
-        </div>
-        <script src="js/main.js"></script>
-
     </body>
 </html>
