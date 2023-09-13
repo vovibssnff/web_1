@@ -34,8 +34,8 @@
             .header-content {
                 width: 48%;
                 display: inline-block;
-                border: 1px;
-                padding: 1rem 1rem;
+                /*border: 1px;*/
+                padding: 0.5%;
                 vertical-align: middle;
             }
             .header-content > #avatar {
@@ -51,6 +51,7 @@
                 color: #ff2f55;
                 font-family: "Bree Serif", serif;
                 font-size: 18px;
+                float: right;
             }
             #form {
                 width: 50%;
@@ -121,7 +122,7 @@
                 </div>
 
                 <div id="y" class="form-content">Ввод Y:
-                    <input id="y_field" type="text" name="val_y" required><br><br>
+                    <input id="y_field" type="text" name="val_y" required placeholder="int value in (-3;5)"><br><br>
                     <div class="form-subcontent">Ввод R:
                         <br><input type="checkbox" name="val_r" value="1" class="checkbox-group r-checkbox">
                         <br><input type="checkbox" name="val_r" value="1.5" class="checkbox-group r-checkbox">

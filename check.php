@@ -1,16 +1,20 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 $val_x = $_GET['val_x'] ?? null;
 $val_y = $_GET['val_y'] ?? null;
 $val_r = $_GET['val_r'] ?? null;
 
-if (!filter_var($val_x, FILTER_VALIDATE_INT)) {
+if (!preg_match('/^-?\d+$/', $val_x)) {
     header('Content-Type: text/plain');
     echo 'x_error: invalid x value';
     exit;
 }
 
-if (!filter_var($val_y, FILTER_VALIDATE_INT)) {
+if (!preg_match('/^-?\d+$/', $val_y)) {
     header('Content-Type: text/plain');
     echo 'y_error: invalid y value';
     exit;
