@@ -24,11 +24,11 @@ $(document).ready(function() {
         var r = $('.checkbox-group.r-checkbox:checked').val();
 
         $.get('check.php', { val_x: x, val_y: y, val_r: r }, function (data)  {
-            // Process the response data (e.g., new rows for the table)
             const t1 = performance.now();
             var now = new Date();
             var execution_time = t1-t0;
             var newData = { x: x, y: y, r: r, time: now, execution_time: execution_time, result: data };
+            console.log(x, y, r);
             var newRow = '<tr>' +
                 '<td>' + newData.x + '</td>' +
                 '<td>' + newData.y + '</td>' +
